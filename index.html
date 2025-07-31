@@ -1,597 +1,126 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>סומכים על ביבי - מנהיגות במציאות</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="למה אנחנו סומכים על בנימין נתניהו כראש ממשלה - הישגים, ניסיון ומנהיגות במציאות מורכבת">
-  <meta name="keywords" content="נתניהו, ביבי, תמיכה, מנהיגות, ישראל, ראש ממשלה">
-  <meta name="author" content="סומכים על ביבי">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://bibi-bay.vercel.app/">
-  <meta property="og:title" content="סומכים על ביבי - מנהיגות במציאות">
-  <meta property="og:description" content="למה אנחנו סומכים על בנימין נתניהו כראש ממשלה - הישגים, ניסיון ומנהיגות במציאות מורכבת">
-  <meta property="og:image" content="https://bibi-bay.vercel.app/download.jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="סומכים על ביבי - מנהיגות מוכחת">
-  <meta property="og:locale" content="he_IL">
-  <meta property="og:site_name" content="סומכים על ביבי">
-  <meta property="fb:app_id" content="544946809123">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://bibi-bay.vercel.app/">
-  <meta name="twitter:title" content="סומכים על ביבי - מנהיגות במציאות">
-  <meta name="twitter:description" content="למה אנחנו סומכים על בנימין נתניהו כראש ממשלה">
-  <meta name="twitter:image" content="https://bibi-bay.vercel.app/download.jpeg">
-  <meta name="twitter:image:alt" content="סומכים על ביבי - מנהיגות מוכחת">
-
-  <!-- WhatsApp -->
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <title>Gibberish Alarm Timer</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Assistant', sans-serif;
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ffffff 100%);
-      margin: 0;
-      padding: 0;
-      direction: rtl;
-      line-height: 1.7;
-      color: #333;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      border-radius: 20px;
-      padding: 3rem 2rem;
+      background: #111;
+      color: #0f0;
+      font-family: monospace;
       text-align: center;
-      margin-bottom: 2rem;
-      border: 2px solid #ffffff20;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
+      padding-top: 80px;
     }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
-      animation: twinkle 3s ease-in-out infinite alternate;
+    input, button {
+      font-size: 1.2em;
+      padding: 8px 15px;
+      margin: 10px;
     }
-
-    @keyframes twinkle {
-      0% { opacity: 0.3; }
-      100% { opacity: 0.7; }
+    #countdown {
+      font-size: 2em;
+      margin: 20px 0;
     }
-
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      color: white;
-      font-weight: 700;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-      position: relative;
-      z-index: 2;
-    }
-
-    header p {
-      font-size: 1.4rem;
-      margin: 0;
-      color: #e8f4fd;
-      font-weight: 300;
-      position: relative;
-      z-index: 2;
-    }
-
-    .israel-flag {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 2rem;
-      z-index: 3;
-    }
-
-    main {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 3rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .intro-section {
-      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-      padding: 2.5rem;
-      border-radius: 15px;
-      margin-bottom: 2rem;
-      border-right: 5px solid #e17055;
-      text-align: center;
-    }
-
-    .intro-section h2 {
-      color: #2d3436;
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    .intro-section p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #2d3436;
-      line-height: 1.8;
-    }
-
-    .achievements-section {
-      background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-      padding: 2.5rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-      border-right: 5px solid #0984e3;
-      color: white;
-    }
-
-    .achievements-section h2 {
-      color: white;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-
-    .achievements-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .achievement-card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .achievement-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .achievement-card h3 {
-      color: white;
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .achievement-card p {
-      margin: 0;
-      color: #e8f4fd;
-      line-height: 1.6;
-    }
-
-    .quote-section {
-      background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-      padding: 2.5rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-      position: relative;
-      border-right: 5px solid #e84393;
-    }
-
-    .quote-section::before {
-      content: '"';
-      font-size: 5rem;
-      position: absolute;
-      top: -10px;
-      right: 30px;
-      color: rgba(255, 255, 255, 0.3);
-      font-family: serif;
-    }
-
-    .quote-section p {
-      font-size: 1.3rem;
-      font-style: italic;
-      margin: 0;
-      color: #2d3436;
-      font-weight: 500;
-      text-align: center;
-      padding-top: 1rem;
-    }
-
-    .quote-author {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 700;
-      color: #2d3436;
-    }
-
-    .leadership-section {
-      background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-      padding: 2.5rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-      border-right: 5px solid #00b894;
-    }
-
-    .leadership-section h2 {
-      color: white;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-
-    .leadership-points {
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .leadership-point {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .leadership-point h3 {
-      color: white;
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .leadership-point p {
-      margin: 0;
-      color: #e8f4fd;
-    }
-
-    .social-share {
-      text-align: center;
-      margin: 2rem 0;
-      padding: 2rem;
-      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-      border-radius: 15px;
-    }
-
-    .social-share p {
-      color: white;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-    }
-
-    .social-share a {
-      margin: 0 1rem;
-      display: inline-block;
-      font-size: 2.2rem;
-      color: white;
-      transition: all 0.3s ease;
-      padding: 15px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .social-share a:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: scale(1.1);
-    }
-
-    .comment-section {
-      background: linear-gradient(135deg, #e17055 0%, #f39c12 100%);
-      padding: 2.5rem;
-      border-radius: 15px;
-      margin-top: 2rem;
-      border-right: 5px solid #e17055;
-    }
-
-    .comment-section h2 {
-      color: white;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-
-    .comment-form {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2rem;
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-      backdrop-filter: blur(10px);
-    }
-
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.9);
-      transition: all 0.3s ease;
-    }
-
-    input[type="text"]:focus, textarea:focus {
-      outline: none;
-      background: white;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-    }
-
-    button {
-      background: linear-gradient(45deg, #e17055, #f39c12);
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    #comments {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .comment {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      border-right: 3px solid #e17055;
-    }
-
-    .comment strong {
-      color: #e17055;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    footer {
-      background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-      color: white;
-      padding: 2.5rem;
-      text-align: center;
-      border-radius: 20px;
-      margin-top: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 10px;
-      }
-
-      header h1 {
-        font-size: 2.5rem;
-      }
-
-      main {
-        padding: 1.5rem;
-      }
-
-      .achievements-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .social-share a {
-        margin: 0 0.5rem;
-        font-size: 1.8rem;
-      }
+    #log {
+      white-space: pre-line;
+      margin-top: 20px;
+      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="israel-flag">🇮🇱</div>
-      <h1>סומכים על ביבי</h1>
-      <p>מנהיגות מוכחת במציאות מורכבת</p>
-    </header>
+  <h1>🕒 Gibberish Timer Alarm</h1>
 
-    <main>
-      <div class="intro-section">
-        <h2>למה אנחנו סומכים על בנימין נתניהו?</h2>
-        <p>במציאות מורכבת ומאתגרת, אנחנו זקוקים למנהיג עם ניסיון, יכולת מוכחת ובינה מדינית. בנימין נתניהו הוכיח לאורך השנים שהוא מסוגל להוביל את ישראל בביטחון, לחזק את כלכלת המדינה ולהבטיח את עתידנו במזרח התיכון המסוכן.</p>
-      </div>
+  <label>Start after (seconds): </label>
+  <input type="number" id="timeInput" min="1" placeholder="e.g. 10">
+  <button onclick="startTimer()">Start Timer</button>
 
-      <div class="achievements-section">
-        <h2><i class="fas fa-trophy"></i> הישגים מוכחים</h2>
-        <div class="achievements-grid">
-          <div class="achievement-card">
-            <h3><i class="fas fa-chart-line"></i> צמיחה כלכלית</h3>
-            <p>תחת הנהגתו, ישראל הפכה ל"אומת הסטארט-אפ" עם צמיחה כלכלית מרשימה, ירידה במחירי המזון והדלק, והעברת ישראל למועדון המדינות המפותחות ב-OECD.</p>
-          </div>
+  <div id="countdown"></div>
+  <div id="log"></div>
 
-          <div class="achievement-card">
-            <h3><i class="fas fa-handshake"></i> הסכמי שלום היסטוריים</h3>
-            <p>הובלת הסכמי אברהם עם איחוד האמירויות, בחריין, מרוקו וסודן - פריצת דרך דיפלומטית שלא הייתה מאז חתימת השלום עם מצרים וירדן.</p>
-          </div>
-
-          <div class="achievement-card">
-            <h3><i class="fas fa-shield-alt"></i> מנהיגות ביטחונית</h3>
-            <p>החלשת איראן, חיסול סוליימאני, הרס התוכנית הגרעינית הסורית, ופעילות מוצלחת נגד חיזבאללה וחמאס. הובלה במלחמת "חרבות ברזל" והחזרת החטופים הביתה.</p>
-          </div>
-
-          <div class="achievement-card">
-            <h3><i class="fas fa-globe"></i> מעמד בינלאומי</h3>
-            <p>חיזוק הקשרים עם ארה"ב תחת ממשלי טראמפ, הכרה בירושלים כבירת ישראל, הכרה בריבונות על רמת הגולן, והקמת יחסים עם מדינות רבות ברחבי העולם.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="quote-section">
-        <p>בזמנים קשים, אנחנו זקוקים למנהיג שמכיר את השטח, יודע לנהל משברים ומוכיח יום יום שהוא עובד למען עתיד ישראל</p>
-        <div class="quote-author">- תומכי ישראל מכל הקשת הפוליטית</div>
-      </div>
-
-      <div class="leadership-section">
-        <h2><i class="fas fa-star"></i> מנהיגות במציאות</h2>
-        <div class="leadership-points">
-          <div class="leadership-point">
-            <h3><i class="fas fa-clock"></i> ניסיון מוכח</h3>
-            <p>יותר מ-15 שנות ניסיון כראש ממשלה, הכרת המערכת הפוליטית והביטחונית לעומק, ויכולת להתמודד עם משברים מורכבים.</p>
-          </div>
-
-          <div class="leadership-point">
-            <h3><i class="fas fa-brain"></i> בינה מדינית</h3>
-            <p>יכולת לקרוא נכון את המפה הגיאופוליטיקה, לבנות בריתות אסטרטגיות ולהוביל ישראל למעמד של כוח אזורי מכובד.</p>
-          </div>
-
-          <div class="leadership-point">
-            <h3><i class="fas fa-users"></i> תמיכה עממית</h3>
-            <p>זוכה שוב ושוב לאמון הציבור בבחירות דמוקרטיות, מה שמעיד על האמון שמענקים לו אזרחי ישראל.</p>
-          </div>
-
-          <div class="leadership-point">
-            <h3><i class="fas fa-forward"></i> חזון לעתיד</h3>
-            <p>מוביל את ישראל לעידן חדש של שגשוג, ביטחון ושלום תוך שמירה על האופי היהודי והדמוקרטי של המדינה.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="social-share">
-        <p><i class="fas fa-share-alt"></i> חשוב לשתף - כי אמונה במנהיגות טובה מתחילה בדיאלוג</p>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://bibi-bay.vercel.app/" target="_blank" title="שיתוף בפייסבוק"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/intent/tweet?url=https://bibi-bay.vercel.app/&text=סומכים%20על%20ביבי%20-%20מנהיגות%20מוכחת" target="_blank" title="שיתוף בטוויטר"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/?text=כדאי%20לקרוא%20למה%20אנחנו%20סומכים%20על%20ביבי%20https://bibi-bay.vercel.app/" target="_blank" title="שיתוף בוואטסאפ"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/share/url?url=https://bibi-bay.vercel.app/&text=סומכים%20על%20ביבי%20-%20מנהיגות%20מוכחת" target="_blank" title="שיתוף בטלגרם"><i class="fab fa-telegram"></i></a>
-      </div>
-
-      <div class="comment-section">
-        <h2><i class="fas fa-comments"></i> הביעו את דעתכם</h2>
-        <div class="comment-form">
-          <form onsubmit="submitComment(event)">
-            <input type="text" id="commentName" placeholder="השם שלך (יופיע בפרסום)" required>
-            <textarea id="commentText" placeholder="למה אתם סומכים על ביבי? שתפו את המחשבות שלכם..." rows="4" required></textarea>
-            <button type="submit"><i class="fas fa-paper-plane"></i> שלח תגובה</button>
-          </form>
-        </div>
-
-        <div id="comments">
-          <h3><i class="fas fa-heart"></i> תגובות מתומכים:</h3>
-          <p style="color: rgba(255,255,255,0.7); font-style: italic;">התגובות ייטענו כאן...</p>
-        </div>
-      </div>
-    </main>
-
-    <footer>
-      <p><i class="fas fa-heart"></i> נכתב מתוך אמונה עמוקה בכוחה של ישראל ובמנהיגותו של בנימין נתניהו</p>
-      <p>&copy; 2025 | סומכים על ביבי - מנהיגות מוכחת</p>
-    </footer>
-  </div>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
-    // הגדרות Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyAUzDzgIeggPyz7MlgMj_4cgNDbGiCfaKo",
-      authDomain: "popchat-b2dd4.firebaseapp.com",
-      databaseURL: "https://popchat-b2dd4-default-rtdb.firebaseio.com/",
-      projectId: "popchat-b2dd4",
-      storageBucket: "popchat-b2dd4.appspot.com",
-      messagingSenderId: "544946809123",
-      appId: "1:544946809123:web:1d52efbff657fa118c4496"
-    };
+    let countdown;
+    let isSpeaking = false;
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    function generateGibberishWord() {
+      const consonants = ["b", "d", "g", "k", "l", "m", "n", "p", "r", "s", "t", "v", "z", "f"];
+      const vowels = ["a", "e", "i", "o", "u"];
+      let word = "";
+      const syllables = Math.floor(Math.random() * 2) + 1;
 
-    function submitComment(e) {
-      e.preventDefault();
-      const name = document.getElementById("commentName").value.trim();
-      const text = document.getElementById("commentText").value.trim();
-
-      if (!name || !text) return;
-
-      // שליחה לFirebase
-      const commentRef = db.ref("bibi-support-comments");
-      commentRef.push({
-        name,
-        text,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-      }).then(() => {
-        // ניקוי הטופס אחרי שליחה מוצלחת
-        document.getElementById("commentName").value = "";
-        document.getElementById("commentText").value = "";
-        alert("התגובה נשלחה בהצלחה!");
-      }).catch((error) => {
-        console.error("שגיאה בשליחת התגובה:", error);
-        alert("שגיאה בשליחת התגובה. נסה שוב.");
-      });
-    }
-
-    function loadComments() {
-      const commentRef = db.ref("bibi-support-comments");
-      commentRef.orderByChild("timestamp").on("value", (snapshot) => {
-        const commentsDiv = document.getElementById("comments");
-        commentsDiv.innerHTML = '<h3><i class="fas fa-heart"></i> תגובות מתומכים:</h3>';
-
-        const comments = [];
-        snapshot.forEach((child) => {
-          comments.push(child.val());
-        });
-
-        if (comments.length === 0) {
-          commentsDiv.innerHTML += '<p style="color: rgba(255,255,255,0.7); font-style: italic;">עדיין אין תגובות. היו הראשונים לשתף!</p>';
-          return;
+      for (let i = 0; i < syllables; i++) {
+        word += consonants[Math.floor(Math.random() * consonants.length)];
+        word += vowels[Math.floor(Math.random() * vowels.length)];
+        if (Math.random() > 0.5) {
+          word += consonants[Math.floor(Math.random() * consonants.length)];
         }
+      }
 
-        // הצגת התגובות (החדשות ראשונות)
-        comments.reverse().forEach((comment) => {
-          const commentEl = document.createElement("div");
-          commentEl.className = "comment";
-          commentEl.innerHTML = `<strong><i class="fas fa-user"></i> ${comment.name}</strong>${comment.text}`;
-          commentsDiv.appendChild(commentEl);
-        });
-      });
+      return word;
     }
 
-    // טעינה ראשונית
-    window.onload = function() {
-      loadComments();
-    };
+    function generatePunctuation() {
+      const marks = ["", ".", "!", "?", "...", "!?"];
+      return marks[Math.floor(Math.random() * marks.length)];
+    }
+
+    function generateSentence() {
+      const length = Math.floor(Math.random() * 7) + 3; // 3–9 words
+      const words = [];
+      for (let i = 0; i < length; i++) {
+        words.push(generateGibberishWord());
+      }
+      return words.join(" ") + generatePunctuation();
+    }
+
+    function speakLoop() {
+      if (!isSpeaking) return;
+
+      const sentence = generateSentence();
+      const utter = new SpeechSynthesisUtterance(sentence);
+      utter.lang = "en-US";
+      utter.pitch = 1;
+      utter.rate = 1.6 + Math.random() * 0.5;
+
+      // Display on screen
+      const log = document.getElementById("log");
+      log.textContent += sentence + "\n";
+      if (log.textContent.split("\n").length > 20) {
+        log.textContent = log.textContent.split("\n").slice(-20).join("\n");
+      }
+
+      speechSynthesis.speak(utter);
+
+      utter.onend = () => {
+        if (isSpeaking) {
+          setTimeout(speakLoop, Math.random() * 400 + 300);
+        }
+      };
+    }
+
+    function startTimer() {
+      const input = document.getElementById("timeInput");
+      let seconds = parseInt(input.value);
+      const countdownDiv = document.getElementById("countdown");
+
+      if (isNaN(seconds) || seconds <= 0) {
+        alert("Enter a valid number of seconds.");
+        return;
+      }
+
+      countdownDiv.textContent = `Starting in ${seconds}...`;
+
+      countdown = setInterval(() => {
+        seconds--;
+        if (seconds > 0) {
+          countdownDiv.textContent = `Starting in ${seconds}...`;
+        } else {
+          clearInterval(countdown);
+          countdownDiv.textContent = "🔊 Gibberish activated!";
+          isSpeaking = true;
+          speakLoop();
+        }
+      }, 1000);
+    }
   </script>
 </body>
 </html>
