@@ -1,125 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gibberish Alarm Timer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musical Gibberish Alarm</title>
   <style>
     body {
-      background: #111;
-      color: #0f0;
+      background: black;
+      color: lime;
       font-family: monospace;
       text-align: center;
-      padding-top: 80px;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      margin-bottom: 1.5rem;
     }
     input, button {
-      font-size: 1.2em;
-      padding: 8px 15px;
-      margin: 10px;
+      font-size: 1.1rem;
+      padding: 0.6rem 1rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 5px;
     }
-    #countdown {
-      font-size: 2em;
-      margin: 20px 0;
+    button {
+      background-color: #0f0;
+      color: #000;
     }
-    #log {
-      white-space: pre-line;
-      margin-top: 20px;
-      font-size: 1.2em;
+    button.stop {
+      background-color: darkred;
+      color: white;
+    }
+    #status, #countdown {
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
     }
   </style>
 </head>
 <body>
-  <h1>🕒 Gibberish Timer Alarm</h1>
-
-  <label>Start after (seconds): </label>
-  <input type="number" id="timeInput" min="1" placeholder="e.g. 10">
-  <button onclick="startTimer()">Start Timer</button>
-
+  <h1>🎵 Musical Gibberish Alarm</h1>
+  <label for="timeInput">Wake up at (HH:MM):</label><br>
+  <input type="time" id="timeInput" />
+  <div>
+    <button onclick="setAlarm()">Set Alarm</button>
+    <button class="stop" onclick="stopAlarm()">Stop</button>
+  </div>
+  <div id="status"></div>
   <div id="countdown"></div>
-  <div id="log"></div>
 
   <script>
-    let countdown;
-    let isSpeaking = false;
+    let ctx;
+    let isPlaying = false;
+    let stopFlag = false;
+    let countdownInterval;
+    let alarmTimeout;
+    let target;
 
-    function generateGibberishWord() {
-      const consonants = ["b", "d", "g", "k", "l", "m", "n", "p", "r", "s", "t", "v", "z", "f"];
-      const vowels = ["a", "e", "i", "o", "u"];
-      let word = "";
-      const syllables = Math.floor(Math.random() * 2) + 1;
+    function playNote(freq, duration, type = "square", volume = 1) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(volume, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration / 1000);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration / 1000);
+    }
+
+    function startMusicLoop() {
+      if (!isPlaying || stopFlag) return;
+      const freq = 200 + Math.random() * 1000;
+      const dur = 150 + Math.random() * 200;
+      const type = ["square", "sawtooth", "triangle"][Math.floor(Math.random() * 3)];
+      playNote(freq, dur, type, 1);
+      setTimeout(startMusicLoop, Math.random() * 200 + 150);
+    }
+
+    function startGibberishLoop() {
+      if (!isPlaying || stopFlag) return;
+      const baseFreq = 300 + Math.random() * 300;
+      const syllables = Math.floor(Math.random() * 4) + 2;
 
       for (let i = 0; i < syllables; i++) {
-        word += consonants[Math.floor(Math.random() * consonants.length)];
-        word += vowels[Math.floor(Math.random() * vowels.length)];
-        if (Math.random() > 0.5) {
-          word += consonants[Math.floor(Math.random() * consonants.length)];
-        }
+        setTimeout(() => {
+          const f = baseFreq + Math.random() * 100;
+          playNote(f, 100, "triangle", 0.3);
+        }, i * 120);
       }
 
-      return word;
+      setTimeout(startGibberishLoop, syllables * 130 + Math.random() * 300);
     }
 
-    function generatePunctuation() {
-      const marks = ["", ".", "!", "?", "...", "!?"];
-      return marks[Math.floor(Math.random() * marks.length)];
+    function formatTime(ms) {
+      const s = Math.floor(ms / 1000);
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
     }
 
-    function generateSentence() {
-      const length = Math.floor(Math.random() * 7) + 3; // 3–9 words
-      const words = [];
-      for (let i = 0; i < length; i++) {
-        words.push(generateGibberishWord());
+    function updateCountdown() {
+      const now = new Date();
+      const msLeft = target - now;
+      const cd = document.getElementById("countdown");
+      if (msLeft <= 0) {
+        clearInterval(countdownInterval);
+        cd.textContent = "";
+        return;
       }
-      return words.join(" ") + generatePunctuation();
+      cd.textContent = `⏳ Time remaining: ${formatTime(msLeft)}`;
     }
 
-    function speakLoop() {
-      if (!isSpeaking) return;
-
-      const sentence = generateSentence();
-      const utter = new SpeechSynthesisUtterance(sentence);
-      utter.lang = "en-US";
-      utter.pitch = 1;
-      utter.rate = 1.6 + Math.random() * 0.5;
-
-      // Display on screen
-      const log = document.getElementById("log");
-      log.textContent += sentence + "\n";
-      if (log.textContent.split("\n").length > 20) {
-        log.textContent = log.textContent.split("\n").slice(-20).join("\n");
-      }
-
-      speechSynthesis.speak(utter);
-
-      utter.onend = () => {
-        if (isSpeaking) {
-          setTimeout(speakLoop, Math.random() * 400 + 300);
-        }
-      };
-    }
-
-    function startTimer() {
+    function setAlarm() {
       const input = document.getElementById("timeInput");
-      let seconds = parseInt(input.value);
-      const countdownDiv = document.getElementById("countdown");
+      const status = document.getElementById("status");
+      stopFlag = false;
 
-      if (isNaN(seconds) || seconds <= 0) {
-        alert("Enter a valid number of seconds.");
+      if (!input.value) {
+        alert("Please enter a time in HH:MM format.");
         return;
       }
 
-      countdownDiv.textContent = `Starting in ${seconds}...`;
+      const [hour, minute] = input.value.split(":").map(Number);
+      const now = new Date();
+      target = new Date();
+      target.setHours(hour, minute, 0, 0);
+      if (target <= now) target.setDate(target.getDate() + 1);
 
-      countdown = setInterval(() => {
-        seconds--;
-        if (seconds > 0) {
-          countdownDiv.textContent = `Starting in ${seconds}...`;
-        } else {
-          clearInterval(countdown);
-          countdownDiv.textContent = "🔊 Gibberish activated!";
-          isSpeaking = true;
-          speakLoop();
-        }
-      }, 1000);
+      const timeStr = target.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      status.textContent = `⏳ Alarm set for ${timeStr}`;
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+
+      alarmTimeout = setTimeout(() => {
+        if (stopFlag) return;
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        isPlaying = true;
+        status.textContent = "🚨 WAKE UP! 🚨";
+        document.getElementById("countdown").textContent = "";
+        clearInterval(countdownInterval);
+        startMusicLoop();
+        startGibberishLoop();
+      }, target - now);
+    }
+
+    function stopAlarm() {
+      stopFlag = true;
+      isPlaying = false;
+      if (ctx) {
+        ctx.close();
+        ctx = null;
+      }
+      clearTimeout(alarmTimeout);
+      clearInterval(countdownInterval);
+      document.getElementById("status").textContent = "🛑 Alarm stopped.";
+      document.getElementById("countdown").textContent = "";
     }
   </script>
 </body>
